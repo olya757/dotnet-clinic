@@ -1,5 +1,3 @@
-using Clinic.Shared.Repository;
-
 namespace Clinic.Entities.Models;
 
 public class User : BaseEntity

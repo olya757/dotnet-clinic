@@ -1,5 +1,4 @@
 using Clinic.Repository;
-using Clinic.Shared.Repository;
 using Clinic.WebAPI.AppConfiguration.ApplicationExtensions;
 using Clinic.WebAPI.AppConfiguration.ServicesExtensions;
 using Clinic.Entities;

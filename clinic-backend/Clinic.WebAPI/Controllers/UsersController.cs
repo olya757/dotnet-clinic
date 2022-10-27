@@ -2,7 +2,7 @@
 using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using Clinic.Entities.Models;
-using Clinic.Shared.Repository;
+using Clinic.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.WebAPI.Controllers

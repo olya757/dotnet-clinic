@@ -1,5 +1,5 @@
+namespace Clinic.Entities.Models;
 
-namespace Clinic.Shared.Repository;
 public abstract class BaseEntity
 {
     public Guid Id { get; set; }

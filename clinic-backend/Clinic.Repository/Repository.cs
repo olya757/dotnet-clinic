@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Clinic.Shared.Repository;
+using Clinic.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

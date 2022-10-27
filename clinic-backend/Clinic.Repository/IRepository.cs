@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
+using Clinic.Entities.Models;
 
-namespace Clinic.Shared.Repository;
+namespace Clinic.Repository;
 
 public interface IRepository<T> where T : BaseEntity
 {

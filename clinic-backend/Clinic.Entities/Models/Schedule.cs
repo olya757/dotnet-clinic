@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using Clinic.Shared.Repository;
-
 namespace Clinic.Entities.Models;
 
 public class Schedule : BaseEntity

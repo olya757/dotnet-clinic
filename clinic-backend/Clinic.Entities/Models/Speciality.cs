@@ -1,9 +1,3 @@
-
-using System.ComponentModel.Design;
-using System.Runtime.InteropServices;
-using System.ComponentModel.DataAnnotations.Schema;
-using Clinic.Shared.Repository;
-
 namespace Clinic.Entities.Models;
 
 public class Speciality : BaseEntity

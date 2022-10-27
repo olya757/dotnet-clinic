@@ -55,7 +55,7 @@
             Doctors endpoints
             </summary>
         </member>
-        <member name="M:Clinic.WebAPI.Controllers.UsersController.#ctor(Clinic.Shared.Repository.IRepository{Clinic.Entities.Models.User})">
+        <member name="M:Clinic.WebAPI.Controllers.UsersController.#ctor(Clinic.Repository.IRepository{Clinic.Entities.Models.User})">
             <summary>
             Doctors controller
             </summary>

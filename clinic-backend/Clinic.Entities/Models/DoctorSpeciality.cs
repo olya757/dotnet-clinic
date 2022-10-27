@@ -1,7 +1,4 @@
-using Clinic.Shared.Repository;
-
 namespace Clinic.Entities.Models;
-
 public class DoctorSpeciality : BaseEntity
 {
     public Guid DoctorId { get; set; }
