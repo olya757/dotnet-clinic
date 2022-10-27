@@ -4,57 +4,63 @@
         <name>Clinic.WebAPI</name>
     </assembly>
     <members>
-        <member name="T:Clinic.WebAPI.AppConfigure.ApplicationExtensions.AppExtensions">
+        <member name="T:Clinic.WebAPI.AppConfiguration.ApplicationExtensions.AppExtensions">
             <summary>
             Application builder extensions
             </summary>
         </member>
-        <member name="M:Clinic.WebAPI.AppConfigure.ApplicationExtensions.AppExtensions.UseSerilogConfiguration(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:Clinic.WebAPI.AppConfiguration.ApplicationExtensions.AppExtensions.UseSerilogConfiguration(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             Use serilog configuration
             </summary>
             <param name="app"></param>
         </member>
-        <member name="M:Clinic.WebAPI.AppConfigure.ApplicationExtensions.AppExtensions.UseSwaggerConfiguration(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:Clinic.WebAPI.AppConfiguration.ApplicationExtensions.AppExtensions.UseSwaggerConfiguration(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             Use swagger configuration
             </summary>
             <param name="app"></param>
         </member>
-        <member name="T:Clinic.WebAPI.AppConfigure.ServicesExtensions.ServicesExtensions">
+        <member name="T:Clinic.WebAPI.AppConfiguration.ServicesExtensions.ServicesExtensions">
             <summary>
             Services extensions
             </summary>
         </member>
-        <member name="M:Clinic.WebAPI.AppConfigure.ServicesExtensions.ServicesExtensions.AddSerilogConfiguration(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+        <member name="M:Clinic.WebAPI.AppConfiguration.ServicesExtensions.ServicesExtensions.AddDbContextConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Add serilog configuration
             </summary>
             <param name="builder"></param>
         </member>
-        <member name="M:Clinic.WebAPI.AppConfigure.ServicesExtensions.ServicesExtensions.AddSwaggerConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Clinic.WebAPI.AppConfiguration.ServicesExtensions.ServicesExtensions.AddSerilogConfiguration(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Add serilog configuration
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Clinic.WebAPI.AppConfiguration.ServicesExtensions.ServicesExtensions.AddSwaggerConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Add swagger settings
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:Clinic.WebAPI.AppConfigure.ServicesExtensions.ServicesExtensions.AddVersioningConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Clinic.WebAPI.AppConfiguration.ServicesExtensions.ServicesExtensions.AddVersioningConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Configure versioning
             </summary>
             <param name="services"></param>
         </member>
-        <member name="T:Clinic.WebAPI.Controllers.DoctorsController">
+        <member name="T:Clinic.WebAPI.Controllers.UsersController">
             <summary>
             Doctors endpoints
             </summary>
         </member>
-        <member name="M:Clinic.WebAPI.Controllers.DoctorsController.#ctor">
+        <member name="M:Clinic.WebAPI.Controllers.UsersController.#ctor(Clinic.Shared.Repository.IRepository{Clinic.Entities.Models.User})">
             <summary>
             Doctors controller
             </summary>
         </member>
-        <member name="M:Clinic.WebAPI.Controllers.DoctorsController.GetDoctors">
+        <member name="M:Clinic.WebAPI.Controllers.UsersController.GetUsers">
             <summary>
             Get doctors
             </summary>

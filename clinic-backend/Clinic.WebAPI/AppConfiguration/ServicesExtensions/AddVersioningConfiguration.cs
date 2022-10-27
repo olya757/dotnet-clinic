@@ -13,6 +13,8 @@ namespace Clinic.WebAPI.AppConfiguration.ServicesExtensions
         /// <param name="services"></param>
         public static void AddVersioningConfiguration(this IServiceCollection services)
         {
+            IEnumerable<int> array = new List<int>();
+
             services.AddVersionedApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
