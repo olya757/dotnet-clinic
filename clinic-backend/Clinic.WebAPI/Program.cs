@@ -1,8 +1,7 @@
 using Clinic.Repository;
+using Clinic.Services;
 using Clinic.WebAPI.AppConfiguration.ApplicationExtensions;
 using Clinic.WebAPI.AppConfiguration.ServicesExtensions;
-using Clinic.Entities;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var configuration = new ConfigurationBuilder()
@@ -14,12 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddSerilogConfiguration();
 builder.Services.AddDbContextConfiguration(configuration);
 builder.Services.AddVersioningConfiguration();
-builder.Services.AddControllers();
+builder.Services.AddMapperConfiguration();
+builder.Services.AddControllers(); //1
 builder.Services.AddSwaggerConfiguration();
+builder.Services.AddRepositoryConfiguration();
+builder.Services.AddBusinessLogicConfiguration();
 
-//temporary
-builder.Services.AddScoped<DbContext, Context>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 var app = builder.Build();
 
@@ -33,7 +32,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.MapControllers();
+app.MapControllers(); //2
 
 try
 {

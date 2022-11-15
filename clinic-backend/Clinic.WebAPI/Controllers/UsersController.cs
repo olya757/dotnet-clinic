@@ -1,8 +1,7 @@
-﻿using System.Globalization;
-using System.Reflection.Metadata;
-using System.Runtime.InteropServices;
-using Clinic.Entities.Models;
-using Clinic.Repository;
+﻿using AutoMapper;
+using Clinic.Services.Abstract;
+using Clinic.Services.Models;
+using Clinic.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.WebAPI.Controllers
@@ -16,25 +15,88 @@ namespace Clinic.WebAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private IRepository<User> _repository;
+        private readonly IUserService userService;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Doctors controller
         /// </summary>
-        public UsersController(IRepository<User> repository)
+        public UsersController(IUserService userService, IMapper mapper)
         {
-            _repository = repository;
+            this.userService = userService;
+            this.mapper = mapper;
         }
 
         /// <summary>
-        /// Get doctors
+        /// Get users by pages
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers([FromQuery] int limit = 20, [FromQuery] int offset = 0)
         {
-            var users = _repository.GetAll();
-            return Ok(users);
+            var pageModel = userService.GetUsers(limit, offset);
+
+            return Ok(mapper.Map<PageResponse<UserResponse>>(pageModel));
+        }
+
+        /// <summary>
+        /// Update user
+        /// </summary>
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserRequest model)
+        {
+            var validationResult = model.Validate();
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+            try
+            {
+                var resultModel = userService.UpdateUser(id, mapper.Map<UpdateUserModel>(model));
+
+                return Ok(mapper.Map<UserResponse>(resultModel));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeleteUser([FromRoute] Guid id)
+        {
+            try
+            {
+                userService.DeleteUser(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Get user
+        /// </summary>
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetUser([FromRoute] Guid id)
+        {
+            try
+            {
+                var userModel = userService.GetUser(id);
+                return Ok(mapper.Map<UserResponse>(userModel));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
     }
 }
