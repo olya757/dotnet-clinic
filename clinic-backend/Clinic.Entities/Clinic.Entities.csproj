@@ -3,6 +3,8 @@
     <ProjectReference Include="..\Clinic.Shared\Clinic.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Duende.IdentityServer" Version="6.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.10" />

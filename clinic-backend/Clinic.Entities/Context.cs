@@ -1,25 +1,27 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Clinic.Entities.Models;
 
 namespace Clinic.Entities;
-public class Context : DbContext
+public class Context : IdentityDbContext<User, UserRole, Guid>
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Doctor> Doctors { get; set; }
-    public DbSet<Patient> Patients { get; set; }
-    public DbSet<Speciality> Specialities { get; set; }
-    public DbSet<DoctorSpeciality> DoctorSpecialities { get; set; }
-    public DbSet<Schedule> Schedules { get; set; }
-    public DbSet<Reception> Receptions { get; set; }
-
     public Context(DbContextOptions<Context> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
         #region Users
 
         builder.Entity<User>().ToTable("users");
         builder.Entity<User>().HasKey(x => x.Id);
+
+        builder.Entity<IdentityUserClaim<Guid>>().ToTable("user_claims");
+        builder.Entity<IdentityUserLogin<Guid>>().ToTable("user_logins");
+        builder.Entity<IdentityUserToken<Guid>>().ToTable("user_tokens");
+        builder.Entity<UserRole>().ToTable("user_roles");
+        builder.Entity<IdentityRoleClaim<Guid>>().ToTable("user_role_claims");
+        builder.Entity<IdentityUserRole<Guid>>().ToTable("user_role_owners");
 
         #endregion
 

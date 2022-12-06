@@ -1,5 +1,6 @@
 using Clinic.Repository;
 using Clinic.Services;
+using Clinic.WebAPI.AppConfiguration;
 using Clinic.WebAPI.AppConfiguration.ApplicationExtensions;
 using Clinic.WebAPI.AppConfiguration.ServicesExtensions;
 using Serilog;
@@ -13,14 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddSerilogConfiguration();
 builder.Services.AddDbContextConfiguration(configuration);
 builder.Services.AddVersioningConfiguration();
-builder.Services.AddMapperConfiguration();
-builder.Services.AddControllers(); //1
-builder.Services.AddSwaggerConfiguration();
-builder.Services.AddRepositoryConfiguration();
-builder.Services.AddBusinessLogicConfiguration();
-
+builder.Services.AddMapperConfiguration(); //presentation profile mapper
+builder.Services.AddControllers();
+builder.Services.AddSwaggerConfiguration(configuration);
+builder.Services.AddRepositoryConfiguration(); // DI for repository layer
+builder.Services.AddBusinessLogicConfiguration(); //DI for services layer
+builder.Services.AddAuthorizationConfiguration(configuration); //1
 
 var app = builder.Build();
+
+await RepositoryInitializer.InitializeRepository(app);
 
 app.UseSerilogConfiguration();
 
@@ -31,8 +34,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers(); //2
+app.UseAuthorizationConfiguration(); //2
+app.UseMiddleware(typeof(ExceptionsMiddleware));
+app.MapControllers();
 
 try
 {

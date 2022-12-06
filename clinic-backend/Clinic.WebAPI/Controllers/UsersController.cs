@@ -2,6 +2,7 @@
 using Clinic.Services.Abstract;
 using Clinic.Services.Models;
 using Clinic.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.WebAPI.Controllers
@@ -10,9 +11,10 @@ namespace Clinic.WebAPI.Controllers
     /// Doctors endpoints
     /// </summary>
     [ProducesResponseType(200)]
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]                               // http://vk.com/profile/1 -> html page
+    [Route("api/v{version:apiVersion}/[controller]")] // http://vk.com/api/v1/profile/1 -> http response with code and body
     [ApiController]
+    //[Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
@@ -32,18 +34,22 @@ namespace Clinic.WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route("")] // /users?limit=20&offset=0
         public IActionResult GetUsers([FromQuery] int limit = 20, [FromQuery] int offset = 0)
         {
             var pageModel = userService.GetUsers(limit, offset);
 
-            return Ok(mapper.Map<PageResponse<UserResponse>>(pageModel));
+            var response = mapper.Map<PageResponse<UserPreviewResponse>>(pageModel);
+
+            return Ok(response); // code 200 + body
         }
 
         /// <summary>
         /// Update user
         /// </summary>
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id}")] // http://localhost/api/v1/users/id
+        [Authorize]
         public IActionResult UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserRequest model)
         {
             var validationResult = model.Validate();
@@ -57,9 +63,9 @@ namespace Clinic.WebAPI.Controllers
 
                 return Ok(mapper.Map<UserResponse>(resultModel));
             }
-            catch (Exception ex)
+            catch (Exception ex) // todo ServiceException ex 400
             {
-                return BadRequest(ex.ToString());
+                return BadRequest(ex.ToString()); //400 
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using Duende.IdentityServer.Models;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace Clinic.WebAPI.AppConfiguration.ApplicationExtensions
 {
@@ -22,6 +23,12 @@ namespace Clinic.WebAPI.AppConfiguration.ApplicationExtensions
                 {
                     options.SwaggerEndpoint($"{description.GroupName}/swagger.json", description.GroupName);
                 };
+
+
+                options.OAuthAppName("API - Swagger");
+
+                options.OAuthClientId("swagger");
+                options.OAuthClientSecret("swagger");
             });
         }
     }
