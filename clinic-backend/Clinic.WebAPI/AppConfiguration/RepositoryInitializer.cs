@@ -1,8 +1,9 @@
 using System;
+using Clinic.Entities;
 using Clinic.Entities.Models;
-using Clinic.Repository;
 using Clinic.Services.Abstract;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.WebAPI.AppConfiguration;
 
@@ -21,10 +22,13 @@ public static class RepositoryInitializer
         });
     }
 
-    public static async Task InitializeRepository(IApplicationBuilder app)
+    public static async Task InitializeRepository(IServiceProvider provider)
     {
-        using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+        using (var scope = provider.GetService<IServiceScopeFactory>().CreateScope())
         {
+            var context = scope.ServiceProvider.GetRequiredService<Context>();            
+            context.Database.Migrate();
+            
             var userManager = (UserManager<User>)scope.ServiceProvider.GetRequiredService(typeof(UserManager<User>));
             var user = await userManager.FindByEmailAsync(MASTER_ADMIN_EMAIL);
             if (user == null)

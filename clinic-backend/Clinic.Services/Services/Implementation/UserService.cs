@@ -44,12 +44,6 @@ public class UserService : IUserService
         var users = usersRepository.GetAll(); //query created
         int totalCount = users.Count();
         var chunk = users.OrderBy(x => x.Email).Skip(offset).Take(limit); //query updated IQueruable<User>
-        /*
-            select * from users
-            order by Email
-            OFFSET 0
-            LIMIT 20
-        */
 
         return new PageModel<UserPreviewModel>()
         {

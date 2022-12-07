@@ -9,5 +9,7 @@ public enum ResultCode
     [Description("Identity server error.")]
     IDENTITY_SERVER_ERROR = 002,
     [Description("Email or password is incorrect.")]
-    EMAIL_OR_PASSWORD_IS_INCORRECT = 003
+    EMAIL_OR_PASSWORD_IS_INCORRECT = 003,
+    [Description("User already exists.")]
+    USER_ALREADY_EXISTS = 004
 }
